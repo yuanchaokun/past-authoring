@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Past Authoring · 书写你的过去，理解你的现在</title>
+<style>
+:root {
+  --bg: #fafaf9;
+  --fg: #1c1917;
+  --muted: #78716c;
+  --border: #e7e5e4;
+  --accent: #292524;
+  --surface: #ffffff;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-serif: 'Georgia', 'Noto Serif SC', serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ---- Hero ---- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 24px;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--border));
+}
+
+.hero-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  max-width: 700px;
+  margin-bottom: 20px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(120deg, #292524 0%, #78716c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 480px;
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+
+.hero-sub-en {
+  font-size: 0.85rem;
+  color: #a8a29e;
+  font-style: italic;
+  max-width: 460px;
+  margin-bottom: 48px;
+  line-height: 1.7;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 36px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: var(--font);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(41, 37, 36, 0.15);
+}
+
+.cta-btn svg {
+  transition: transform 0.3s;
+}
+
+.cta-btn:hover svg {
+  transform: translateX(3px);
+}
+
+/* ---- Scroll hint ---- */
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+/* ---- Section Base ---- */
+.sect {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 120px 24px;
+}
+
+.sect-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.sect h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+.sect p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  max-width: 560px;
+}
+
+.sect p.en {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: #a8a29e;
+  margin-top: 6px;
+}
+
+/* ---- What is it ---- */
+.what-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 56px;
+}
+
+.what-card {
+  padding: 0;
+}
+
+.what-card-num {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.what-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.what-card p {
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+/* ---- Quote ---- */
+.quote-sect {
+  text-align: center;
+  padding: 100px 24px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.quote-sect blockquote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+  line-height: 1.6;
+  color: var(--fg);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.quote-sect blockquote::before {
+  content: '"';
+  font-size: 4rem;
+  position: absolute;
+  top: -24px;
+  left: -20px;
+  color: var(--border);
+  font-family: var(--font-serif);
+  line-height: 1;
+}
+
+.quote-author {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+/* ---- Steps ---- */
+.steps-list {
+  margin-top: 56px;
+  position: relative;
+}
+
+.steps-list::before {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.step-item {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 44px;
+  position: relative;
+}
+
+.step-item:last-child { margin-bottom: 0; }
+
+.step-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s;
+}
+
+.step-item:hover .step-dot {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.step-body h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  line-height: 40px;
+}
+
+.step-body p {
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.step-body .en {
+  font-size: 0.78rem;
+  font-style: italic;
+  color: #a8a29e;
+  margin-top: 4px;
+}
+
+/* ---- Features ---- */
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 56px;
+}
+
+.feat-card {
+  padding: 28px 24px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  transition: all 0.3s;
+}
+
+.feat-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(41, 37, 36, 0.06);
+}
+
+.feat-icon {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.feat-card h3 {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.feat-card p {
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+/* ---- Science ---- */
+.science-items {
+  margin-top: 48px;
+  display: grid;
+  gap: 28px;
+}
+
+.sci-item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.sci-bar {
+  width: 3px;
+  min-height: 48px;
+  background: var(--accent);
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.sci-item h3 {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.sci-item p {
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+/* ---- Final CTA ---- */
+.final-cta {
+  text-align: center;
+  padding: 120px 24px 140px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.final-cta h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 400;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.final-cta p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+
+.final-cta .cta-btn {
+  font-size: 1rem;
+  padding: 16px 44px;
+}
+
+/* ---- Footer ---- */
+footer {
+  text-align: center;
+  padding: 40px 24px;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* ---- Divider ---- */
+.divider-line {
+  width: 48px;
+  height: 1px;
+  background: var(--border);
+  margin: 0 auto;
+}
+
+/* ---- Animations on scroll ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+  .what-grid { grid-template-columns: 1fr; gap: 32px; }
+  .feat-grid { grid-template-columns: 1fr; }
+  .sect { padding: 80px 20px; }
+  .hero { padding: 60px 20px; }
+  .quote-sect blockquote::before { left: -8px; font-size: 3rem; }
+}
+
+@media (max-width: 768px) {
+  .feat-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <p class="hero-eyebrow">Jordan Peterson's Self-Authoring Program</p>
+  <h1>书写你的过去<br>理解你的<em>现在</em></h1>
+  <p class="hero-sub">
+    基于乔丹·彼得森（Jordan Peterson）的 Self-Authoring 项目，<br>
+    这是一次关于「你是谁」的深度书写练习。
+  </p>
+  <p class="hero-sub-en">
+    A structured writing exercise to help you explore your past,
+    understand the defining moments of your life,
+    and chart a clearer path forward.
+  </p>
+  <a href="index.html" class="cta-btn">
+    开始书写
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+  <div class="scroll-hint">向下滚动了解更多</div>
+</section>
+
+<!-- ============ WHAT IS IT ============ -->
+<section class="sect reveal">
+  <p class="sect-label">关于这个项目</p>
+  <h2>什么是过去自我书写？</h2>
+  <p>Self-Authoring Suite 是一套在线写作程序，帮助你探索过去、现在和未来。研究表明，认真书写自己的人会变得更快乐、更健康、更有生产力。</p>
+  <p class="en">The Self-Authoring Suite is a series of online writing programs that help you explore your past, present and future. Research shows that people who write carefully about themselves become happier, healthier, and more productive.</p>
+
+  <div class="what-grid">
+    <div class="what-card reveal">
+      <p class="what-card-num">Part 01</p>
+      <h3>过去 · Past</h3>
+      <p>帮助你记住、表达和分析那些关键的积极与消极的人生经历。</p>
+      <p class="en">Helps you remember, articulate and analyze key positive and negative life experiences.</p>
+    </div>
+    <div class="what-card reveal">
+      <p class="what-card-num">Part 02</p>
+      <h3>现在 · Present</h3>
+      <p>帮助你理解并纠正性格缺陷，同时理解并发展你的美德。</p>
+      <p class="en">Helps you understand and rectify your faults, and develop your virtues.</p>
+    </div>
+    <div class="what-card reveal">
+      <p class="what-card-num">Part 03</p>
+      <h3>未来 · Future</h3>
+      <p>帮助你设想有意义的、健康的未来，并制定详细的可实施计划。</p>
+      <p class="en">Helps you envision a meaningful future and develop a detailed, implementable plan.</p>
+    </div>
+    <div class="what-card reveal">
+      <p class="what-card-num">当前练习</p>
+      <h3>本工具专注于「过去」</h3>
+      <p>通过回顾人生的七个阶段，书写那些塑造了你的经历，从而真正地「放下过去」。</p>
+      <p class="en">By reviewing seven epochs of your life and writing about the experiences that shaped you, you can truly "put your past to rest".</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTE ============ -->
+<div class="divider-line"></div>
+
+<section class="quote-sect reveal">
+  <blockquote>你的心灵一直在试图判断环境的危险程度。如果过去发生了糟糕的事情，你的内心就无法平静，直到你弄清楚如何避免同样的事情再次发生。</blockquote>
+  <p class="quote-author">— Jordan B. Peterson</p>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="sect reveal">
+  <p class="sect-label">练习流程</p>
+  <h2>它是如何运作的？</h2>
+  <p>整个练习分为6个步骤，引导你从宏观到微观，逐层深入地审视过去。</p>
+  <p class="en">The exercise consists of 6 steps, guiding you from macro to micro, layer by layer into your past.</p>
+
+  <div class="steps-list">
+    <div class="step-item reveal">
+      <div class="step-dot">1</div>
+      <div class="step-body">
+        <h3>划分人生时期</h3>
+        <p>将你的人生分为7个时期。可长可短，由你决定。</p>
+        <p class="en">Divide your life into 7 epochs — as short or long as you wish.</p>
+      </div>
+    </div>
+    <div class="step-item reveal">
+      <div class="step-dot">2</div>
+      <div class="step-body">
+        <h3>描述重要经历</h3>
+        <p>为每个时期写下最多6个重要经历的标题与详细描述。</p>
+        <p class="en">Describe up to 6 significant experiences for each epoch.</p>
+      </div>
+    </div>
+    <div class="step-item reveal">
+      <div class="step-dot">3</div>
+      <div class="step-body">
+        <h3>分析影响</h3>
+        <p>分析每段经历如何塑造了你、改变了你对世界和他人的看法。</p>
+        <p class="en">Analyze how each experience shaped you and changed your worldview.</p>
+      </div>
+    </div>
+    <div class="step-item reveal">
+      <div class="step-dot">4</div>
+      <div class="step-body">
+        <h3>选出十个最关键的经历</h3>
+        <p>从所有经历中，挑选对你人生影响最深远的10个。</p>
+        <p class="en">Choose the 10 experiences most important in shaping your life.</p>
+      </div>
+    </div>
+    <div class="step-item reveal">
+      <div class="step-dot">5</div>
+      <div class="step-body">
+        <h3>深度分析</h3>
+        <p>对这10个关键经历进行深度剖析——正面还是负面？你扮演了什么角色？有什么本可以做得不同？</p>
+        <p class="en">Deep-dive into each: positive or negative? Your role? What could have been different?</p>
+      </div>
+    </div>
+    <div class="step-item reveal">
+      <div class="step-dot">6</div>
+      <div class="step-body">
+        <h3>综合总结与导出</h3>
+        <p>查看你的完整自传，导出为 Markdown、JSON 或直接打印为 PDF。</p>
+        <p class="en">View your complete autobiography and export as Markdown, JSON, or print to PDF.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="sect reveal">
+  <p class="sect-label">设计特点</p>
+  <h2>为深度书写而设计</h2>
+  <p>每一个细节都是为了让你沉浸在书写之中，不受干扰。</p>
+
+  <div class="feat-grid">
+    <div class="feat-card reveal">
+      <span class="feat-icon">双</span>
+      <h3>中英双语</h3>
+      <p>所有问题均提供中英文版本，随时切换，确保精准理解每一个提问。</p>
+    </div>
+    <div class="feat-card reveal">
+      <span class="feat-icon">◧</span>
+      <h3>进度追踪</h3>
+      <p>顶部进度条实时显示完成百分比，全局字数统计让你掌握书写节奏。</p>
+    </div>
+    <div class="feat-card reveal">
+      <span class="feat-icon">↻</span>
+      <h3>自动保存</h3>
+      <p>所有内容自动保存到浏览器本地，关掉页面再打开，一切都在。</p>
+    </div>
+    <div class="feat-card reveal">
+      <span class="feat-icon">◎</span>
+      <h3>极简沉浸</h3>
+      <p>简约设计，大量留白，让你的注意力完全集中在书写本身。</p>
+    </div>
+    <div class="feat-card reveal">
+      <span class="feat-icon">⤓</span>
+      <h3>自由导出</h3>
+      <p>完成后可导出 Markdown 文档、JSON 数据，或直接打印成 PDF。</p>
+    </div>
+    <div class="feat-card reveal">
+      <span class="feat-icon">⊘</span>
+      <h3>无需注册</h3>
+      <p>无需账号、无需登录、无需网络。纯本地运行，隐私完全由你掌控。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCIENCE ============ -->
+<div class="divider-line"></div>
+
+<section class="sect reveal">
+  <p class="sect-label">科学依据</p>
+  <h2>为什么书写有效？</h2>
+  <p>数十年的心理学研究表明，结构化的自我书写能带来真实可测量的改变。</p>
+
+  <div class="science-items">
+    <div class="sci-item reveal">
+      <div class="sci-bar"></div>
+      <div>
+        <h3>降低压力激素</h3>
+        <p>未被处理的过去会让你的身体持续产生皮质醇（压力激素），长期会损害记忆和情绪控制的大脑区域。通过书写来「消化」过去，可以打破这个恶性循环。</p>
+        <p class="en">Unresolved past experiences keep your body producing cortisol. Writing helps break this cycle.</p>
+      </div>
+    </div>
+    <div class="sci-item reveal">
+      <div class="sci-bar"></div>
+      <div>
+        <h3>提升学业与工作表现</h3>
+        <p>使用 Self-Authoring 的学生辍学率显著降低，学业表现明显提升。清晰地认知过去让人更能专注于当下。</p>
+        <p class="en">Students using Self-Authoring show significantly reduced dropout rates and improved performance.</p>
+      </div>
+    </div>
+    <div class="sci-item reveal">
+      <div class="sci-bar"></div>
+      <div>
+        <h3>身心健康改善</h3>
+        <p>认真书写自己的人变得更快乐、更少焦虑和抑郁、身体更健康。研究显示积极效果通常在完成练习后两周开始显现。</p>
+        <p class="en">People who write carefully about themselves become happier, less anxious, and physically healthier.</p>
+      </div>
+    </div>
+    <div class="sci-item reveal">
+      <div class="sci-bar"></div>
+      <div>
+        <h3>睡眠与梦的整合</h3>
+        <p>研究建议在几天内分次完成练习。睡眠，尤其是做梦，能帮助你更深入地参与书写并巩固新的认知。</p>
+        <p class="en">Sleeping and dreaming between sessions helps consolidate new insights from writing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<div class="divider-line"></div>
+
+<section class="final-cta reveal">
+  <h2>放下过去的重量<br>开始书写你的故事</h2>
+  <p>
+    不需要一次完成。你可以随时暂停、随时回来。<br>
+    所有内容都保存在你的浏览器中，只属于你。
+  </p>
+  <a href="index.html" class="cta-btn">
+    开始过去自我书写
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <p>基于 Jordan B. Peterson 的 Self-Authoring Suite · Past Authoring Program</p>
+  <p>本工具仅供个人学习与自我探索使用</p>
+</footer>
+
+<!-- ============ SCROLL REVEAL ============ -->
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.12,
+  rootMargin: '0px 0px -40px 0px'
+});
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
